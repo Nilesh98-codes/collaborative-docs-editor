@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
-import "./globals.css";
 import { Inter, Roboto, Poppins, Montserrat } from "next/font/google"
+import "./globals.css";
+import { NuqsAdapter } from "nuqs/adapters/next/app";
+
 
 const inter = Inter({
   subsets: ["latin"],
@@ -25,16 +26,7 @@ const montserrat = Montserrat({
   variable: "--font-montserrat",
 })
 
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
-});
+
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -44,15 +36,14 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="en">
       <body
         className={`
-          ${geistSans.variable}
-          ${geistMono.variable}
+          ${inter.className}
           ${inter.variable}
           ${roboto.variable}
           ${poppins.variable}
@@ -60,7 +51,9 @@ export default function RootLayout({
           antialiased
         `}
       >
-        {children}
+        <NuqsAdapter>
+          {children}
+        </NuqsAdapter>
       </body>
     </html>
   );
