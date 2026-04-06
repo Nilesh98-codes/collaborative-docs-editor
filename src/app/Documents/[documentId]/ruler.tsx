@@ -1,11 +1,22 @@
 import { useRef, useState } from "react";
 import { FaCaretDown } from "react-icons/fa";
+import { useStorage, useMutation } from "@liveblocks/react";
+
+import { RIGHT_MARGIN_DEFAULT, LEFT_MARGIN_DEFAULT } from "@/constants/margins";
 
 const markers = Array.from({ length: 83 }, (_, i) => i);
 
 export const Ruler = () => {
-    const [leftMargin, setLeftMargin] = useState(56);
-    const [rightMargin, setRightMargin] = useState(56);
+    const leftMargin = useStorage((root) => root.leftMargin) ?? LEFT_MARGIN_DEFAULT;
+    const setLeftMargin = useMutation(({ storage }, position: number) => {
+        storage.set("leftMargin", position);
+    }, [])
+
+    const rightMargin = useStorage((root) => root.rightMargin) ?? RIGHT_MARGIN_DEFAULT;
+    const setRightMargin = useMutation(({ storage }, position: number) => {
+        storage.set("rightMargin", position);
+    }, [])
+
 
     const [isDraggingLeft, setIsDraggingLeft] = useState(false)
     const [isDraggingRight, setIsDraggingRight] = useState(false)
@@ -34,7 +45,7 @@ export const Ruler = () => {
                 if (isDraggingLeft) {
                     const maxLeftPosition = PAGE_WIDTH - rightMargin - MINIMUM_SPACE;
                     const newLeftPosition = Math.min(rawPosition, maxLeftPosition);
-                    setLeftMargin(newLeftPosition);   //make this collaborative
+                    setLeftMargin(newLeftPosition);   
                 } else if (isDraggingRight) {
                     const maxRightPosition = PAGE_WIDTH - (leftMargin + MINIMUM_SPACE);
                     const newRightPosition = Math.max(PAGE_WIDTH - rawPosition, 0);
@@ -51,11 +62,11 @@ export const Ruler = () => {
     };
 
     const handleLeftDoubleClick = () => {
-        setLeftMargin(56);
+        setLeftMargin(LEFT_MARGIN_DEFAULT);
     };
 
     const handleRightDoubleClick = () => {
-        setRightMargin(56);
+        setRightMargin(RIGHT_MARGIN_DEFAULT);
     };
 
     return (

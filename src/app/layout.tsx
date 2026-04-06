@@ -1,8 +1,13 @@
 import type { Metadata } from "next";
 import { Inter, Roboto, Poppins, Montserrat } from "next/font/google"
-import "./globals.css";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
+import { Toaster } from "@/components/ui/sonner";
 
+import { ConvexClientProvider } from "@/components/convex-client-provider";
+
+import "@liveblocks/react-ui/styles.css";
+import "@liveblocks/react-tiptap/styles.css";
+import "./globals.css";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -52,7 +57,10 @@ export default function RootLayout({
         `}
       >
         <NuqsAdapter>
-          {children}
+          <ConvexClientProvider>
+            <Toaster />
+            {children}
+          </ConvexClientProvider>
         </NuqsAdapter>
       </body>
     </html>

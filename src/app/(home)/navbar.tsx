@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import { UserButton, OrganizationSwitcher } from "@clerk/nextjs";
 import { SearchInput } from "./search-input";
 
 export const Navbar = () => {
@@ -9,10 +10,19 @@ export const Navbar = () => {
                 <Link href="/">
                     <Image src="/logo.svg" alt="Logo" width={36} height={36} />
                 </Link>
-                <h3 className="text-xl">Docs</h3>
+                <h3 className="text-xl ">Note-Sync</h3>
             </div>
             <SearchInput />
-            <div />
+            <div className="flex items-center gap-3 pl-6">
+                <OrganizationSwitcher 
+                   afterCreateOrganizationUrl="/"
+                   afterLeaveOrganizationUrl="/"
+                   afterSelectOrganizationUrl="/"
+                   afterSelectPersonalUrl="/"
+                />
+                <UserButton />
+
+            </div>
         </nav>
 
     );
