@@ -25,6 +25,7 @@ import {
     PrinterIcon,
     Redo2Icon,
     RemoveFormattingIcon,
+    ScanIcon,
     SearchIcon,
     SpellCheckIcon,
     UnderlineIcon,
@@ -51,6 +52,8 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import Tesseract from "tesseract.js";
+import { toast } from "sonner";
 
 const LineHeightButton = () => {
     const { editor } = useEditorStore();
@@ -620,6 +623,109 @@ const ToolbarButton = ({
 
 
 
+const OCRButton = () => {
+    const { editor } = useEditorStore();
+    const [isProcessing, setIsProcessing] = useState(false);
+    const [isDialogOpen, setIsDialogOpen] = useState(false);
+    const [extractedText, setExtractedText] = useState("");
+
+    const handleOCR = () => {
+        const input = document.createElement("input");
+        input.type = "file";
+        input.accept = "image/*";
+
+        input.onchange = async (e) => {
+            const file = (e.target as HTMLInputElement).files?.[0];
+            if (!file) return;
+
+            setIsProcessing(true);
+            try {
+                const worker = await Tesseract.createWorker("eng", 1, {
+                    workerPath: "/tesseract-worker.min.js",
+                    corePath: "/tesseract-core/",
+                });
+                const result = await worker.recognize(file);
+                await worker.terminate();
+                const text = result.data.text.trim();
+                if (text) {
+                    setExtractedText(text);
+                    setIsDialogOpen(true);
+                } else {
+                    toast.error("No text could be extracted from this image.");
+                }
+            } catch {
+                toast.error("Failed to process the image. Please try again.");
+            } finally {
+                setIsProcessing(false);
+            }
+        };
+        input.click();
+    };
+
+    const handleInsert = () => {
+        if (extractedText) {
+            editor?.chain().focus().insertContent(extractedText).run();
+            setIsDialogOpen(false);
+            setExtractedText("");
+            toast.success("Text inserted into document.");
+        }
+    };
+
+    return (
+        <>
+            <button
+                onClick={handleOCR}
+                disabled={isProcessing}
+                className="h-7 min-w-7 shrink-0 flex items-center justify-center rounded-sm hover:bg-neutral-200/80 px-1.5 overflow-hidden text-sm disabled:opacity-50"
+                title="Extract text from image (OCR)"
+            >
+                {isProcessing ? (
+                    <svg className="size-4 animate-spin" viewBox="0 0 24 24" fill="none">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                    </svg>
+                ) : (
+                    <ScanIcon className="size-4" />
+                )}
+            </button>
+
+            <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+                <DialogContent className="sm:max-w-lg p-0 border-none shadow-2xl rounded-xl overflow-hidden">
+                    <div className="bg-[#F1F4F9] px-5 py-4 border-b border-neutral-200/60">
+                        <DialogHeader>
+                            <DialogTitle className="flex items-center gap-2 text-sm font-semibold text-neutral-700">
+                                <ScanIcon className="size-4 text-blue-500" />
+                                Review Extracted Text
+                            </DialogTitle>
+                        </DialogHeader>
+                    </div>
+                    
+                    <div className="p-5 space-y-3">
+                        <p className="text-xs text-neutral-500 font-medium tracking-wide uppercase">
+                            Edit Scanned Output
+                        </p>
+                        <textarea
+                            value={extractedText}
+                            onChange={(e) => setExtractedText(e.target.value)}
+                            className="w-full h-56 p-4 bg-neutral-50 border border-neutral-200 rounded-lg text-sm text-neutral-700 resize-y focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-400 transition-colors placeholder:text-neutral-400 font-mono leading-relaxed"
+                            placeholder="Extracted text will appear here..."
+                        />
+                    </div>
+                    
+                    <div className="bg-neutral-50/50 px-5 py-4 border-t border-neutral-100 flex items-center justify-end gap-2">
+                        <Button variant="ghost" className="text-xs h-9 rounded-full px-4 text-neutral-600 hover:text-neutral-800 hover:bg-neutral-200/50" onClick={() => setIsDialogOpen(false)}>
+                            Cancel
+                        </Button>
+                        <Button className="text-xs h-9 rounded-full px-5 bg-blue-600 hover:bg-blue-700 text-white shadow-sm" onClick={handleInsert}>
+                            Insert
+                        </Button>
+                    </div>
+                </DialogContent>
+            </Dialog>
+        </>
+    );
+};
+
 export const Toolbar = () => {
     const { editor } = useEditorStore();
 
@@ -724,6 +830,7 @@ export const Toolbar = () => {
             <Separator orientation="vertical" className="h-6 bg-neutral-300" />
             <LinkButton />
             <ImageButton />
+            <OCRButton />
             <AlignButton />
             <LineHeightButton />
             <ListButton />

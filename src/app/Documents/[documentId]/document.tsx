@@ -8,6 +8,8 @@ import { Editor } from "./editor";
 import { Navbar } from "./navbar";
 import { Toolbar } from "./toolbar";
 import { Room } from "./room"
+import { AIWritingAssistant } from "./ai-writing-assistant"
+import { PomodoroTimer } from "./pomodoro-timer"
 import { api } from "../../../../convex/_generated/api";
 
 interface DocumentProps {
@@ -33,8 +35,10 @@ export const Document = ({ preloadedDocument }: DocumentProps) => {
                     <Navbar data={document}/>
                     <Toolbar />
                 </div>
-                <div className="pt-[114px] print:pt-0">
+                <div className="pt-[114px] print:pt-0 relative">
                     <Editor initialContent={document.initialContent}/>
+                    <AIWritingAssistant />
+                    <PomodoroTimer />
                 </div>
             </div>
         </Room>
