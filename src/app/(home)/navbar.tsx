@@ -10,7 +10,7 @@ export const Navbar = () => {
                 <Link href="/">
                     <Image src="/logo.svg" alt="Logo" width={36} height={36} />
                 </Link>
-                <h3 className="text-xl ">Note-Sync</h3>
+                <h3 className="text-xl font-semibold bg-gradient-to-r from-indigo-600 to-violet-600 bg-clip-text text-transparent">NoteSync</h3>
             </div>
             <SearchInput />
             <div className="flex items-center gap-3 pl-6">

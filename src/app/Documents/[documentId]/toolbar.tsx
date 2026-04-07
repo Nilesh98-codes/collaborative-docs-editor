@@ -70,7 +70,7 @@ const lineHeights = [
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
                 <button
-                    className="h-7 m-w-7 shrink-0 flex flex-col items-center justify-center rounded-sm hover:bg-neutral-200/80 px-1.5 overflow-hidden text-sm"
+                    className="h-7 m-w-7 shrink-0 flex flex-col items-center justify-center rounded-md hover:bg-indigo-50 hover:text-indigo-700 px-1.5 overflow-hidden text-sm"
                 >
                 <ListCollapseIcon className="size-4" />
                 </button>
@@ -81,8 +81,8 @@ const lineHeights = [
                     key={value}
                     onClick={() => editor?.chain().focus().setLineHeight(value).run()}
                     className={cn(
-                        "flex items-center gap-x-2 ps-2 py-1 rounded-sm hover:bg-neutral-200/80",
-                        editor?.getAttributes("paragraph").lineHeight === value && "bg-neutral-200/80"                 
+                        "flex items-center gap-x-2 ps-2 py-1 rounded-md hover:bg-indigo-50 hover:text-indigo-700",
+                        editor?.getAttributes("paragraph").lineHeight === value && "bg-indigo-50 text-indigo-700"                 
                         )}
                     >
                     
@@ -150,7 +150,7 @@ const FontSizeButton = () => {
         <div className="flex items-center gap-x-0.5">
             <button 
             onClick={decrement}
-            className="h-7 w-7 shrink-0 flex items-center justify-center rounded-sm hover:bg-neutral-200/80"
+            className="h-7 w-7 shrink-0 flex items-center justify-center rounded-md hover:bg-indigo-50 hover:text-indigo-700"
             >
                 <MinusIcon className="size-4" />
             </button>
@@ -161,7 +161,7 @@ const FontSizeButton = () => {
                 onChange={handleInputChange}
                 onBlur={handleInputBlur}
                 onKeyDown={handleKeyDown}
-                className="h-7 w-10 text-sm text-center border border-neutral-400 rounded-sm bg-transparent focus:outline-none focus: ring-0" 
+                className="h-7 w-10 text-sm text-center border border-indigo-300 rounded-md bg-transparent focus:outline-none focus:ring-1 focus:ring-indigo-400" 
                 />
             ): (
                 <button
@@ -169,7 +169,7 @@ const FontSizeButton = () => {
                     setIsEditing(true);
                     setFontSize(currentFontSize);
                 }}
-                className="h-7 w-10 text-sm text-center border border-neutral-400 rounded-sm hover:bg-neutral-200/80"
+                className="h-7 w-10 text-sm text-center border border-neutral-300 rounded-md hover:bg-indigo-50 hover:border-indigo-300"
                 >
                     {currentFontSize}
 
@@ -177,7 +177,7 @@ const FontSizeButton = () => {
             )}
             <button 
             onClick={increment}
-            className="h-7 w-7 shrink-0 flex items-center justify-center rounded-sm hover:bg-neutral-200/80"
+            className="h-7 w-7 shrink-0 flex items-center justify-center rounded-md hover:bg-indigo-50 hover:text-indigo-700"
             >
                 <PlusIcon className="size-4" />
             </button>
@@ -209,7 +209,7 @@ const ListButton = () => {
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
                 <button
-                    className="h-7 m-w-7 shrink-0 flex flex-col items-center justify-center rounded-sm hover:bg-neutral-200/80 px-1.5 overflow-hidden text-sm"
+                    className="h-7 m-w-7 shrink-0 flex flex-col items-center justify-center rounded-md hover:bg-indigo-50 hover:text-indigo-700 px-1.5 overflow-hidden text-sm"
                 >
                     <ListIcon className="size-4" />
                 </button>
@@ -220,8 +220,8 @@ const ListButton = () => {
                     key={label}
                     onClick={onClick}
                     className={cn(
-                        "flex items-center gap-x-2 ps-2 py-1 rounded-sm hover:bg-neutral-200/80",
-                        isActive() && "bg-neutral-200/80"                 
+                        "flex items-center gap-x-2 ps-2 py-1 rounded-md hover:bg-indigo-50 hover:text-indigo-700",
+                        isActive() && "bg-indigo-50 text-indigo-700"                 
                         )}
                     >
                         <Icon className="size-4"/>
@@ -265,7 +265,7 @@ const AlignButton = () => {
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
                 <button
-                    className="h-7 m-w-7 shrink-0 flex flex-col items-center justify-center rounded-sm hover:bg-neutral-200/80 px-1.5 overflow-hidden text-sm"
+                    className="h-7 m-w-7 shrink-0 flex flex-col items-center justify-center rounded-md hover:bg-indigo-50 hover:text-indigo-700 px-1.5 overflow-hidden text-sm"
                 >
                     <AlignLeftIcon className="size-4" />
                 </button>
@@ -276,8 +276,8 @@ const AlignButton = () => {
                     key={value}
                     onClick={() => editor?.chain().focus().setTextAlign(value).run()}
                     className={cn(
-                        "flex items-center gap-x-2 ps-2 py-1 rounded-sm hover:bg-neutral-200/80",
-                        editor?.isActive({ textAlign: value }) && "bg-neutral-200/80"                 
+                        "flex items-center gap-x-2 ps-2 py-1 rounded-md hover:bg-indigo-50 hover:text-indigo-700",
+                        editor?.isActive({ textAlign: value }) && "bg-indigo-50 text-indigo-700"                 
                         )}
                     >
                         <Icon className="size-4"/>
@@ -328,7 +328,7 @@ const ImageButton = () => {
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
                 <button
-                    className="h-7 m-w-7 shrink-0 flex flex-col items-center justify-center rounded-sm hover:bg-neutral-200/80 px-1.5 overflow-hidden text-sm"
+                    className="h-7 m-w-7 shrink-0 flex flex-col items-center justify-center rounded-md hover:bg-indigo-50 hover:text-indigo-700 px-1.5 overflow-hidden text-sm"
                 >
                     <ImageIcon className="size-4" />
                 </button>
@@ -391,7 +391,7 @@ const LinkButton = () => {
         }}>
             <DropdownMenuTrigger asChild>
                 <button
-                    className="h-7 m-w-7 shrink-0 flex flex-col items-center justify-center rounded-sm hover:bg-neutral-200/80 px-1.5 overflow-hidden text-sm"
+                    className="h-7 m-w-7 shrink-0 flex flex-col items-center justify-center rounded-md hover:bg-indigo-50 hover:text-indigo-700 px-1.5 overflow-hidden text-sm"
                 >
                     <Link2Icon className="size-4" />
                 </button>
@@ -426,7 +426,7 @@ const HighlightColorButton = () => {
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
                 <button
-                    className="h-7 m-w-7 shrink-0 flex flex-col items-center justify-center rounded-sm hover:bg-neutral-200/80 px-1.5 overflow-hidden text-sm"
+                    className="h-7 m-w-7 shrink-0 flex flex-col items-center justify-center rounded-md hover:bg-indigo-50 hover:text-indigo-700 px-1.5 overflow-hidden text-sm"
                 >
                     <HighlighterIcon className="size-4" />
                 </button>
@@ -456,7 +456,7 @@ const TextColorButton = () => {
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
                 <button
-                    className="h-7 m-w-7 shrink-0 flex flex-col items-center justify-center rounded-sm hover:bg-neutral-200/80 px-1.5 overflow-hidden text-sm"
+                    className="h-7 m-w-7 shrink-0 flex flex-col items-center justify-center rounded-md hover:bg-indigo-50 hover:text-indigo-700 px-1.5 overflow-hidden text-sm"
                 >
                     <span className="text-xs">A</span>
                     <div className="h-0.5 w-full" style={{ backgroundColor: values }}></div>
@@ -499,7 +499,7 @@ const HeadingLevelButton = () => {
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
                 <button
-                    className="h-7 m-w-7 shrink-0 flex items-center justify-center rounded-sm hover:bg-neutral-200/80 px-1.5 overflow-hidden text-sm"
+                    className="h-7 m-w-7 shrink-0 flex items-center justify-center rounded-md hover:bg-indigo-50 hover:text-indigo-700 px-1.5 overflow-hidden text-sm"
                 >
                     <span className="truncate">
                         {getCurrentHeading()}
@@ -521,8 +521,8 @@ const HeadingLevelButton = () => {
                             }
                         }}
                         className={cn(
-                            "flex items-center gap-x-2 px-2 py-1 rounded-sm hover:bg-neutral-200/80",
-                            (value === 0 && !editor?.isActive("heading")) || editor?.isActive("heading", { level: value }) && "bg-neutral-200/80"
+                            "flex items-center gap-x-2 px-2 py-1 rounded-md hover:bg-indigo-50 hover:text-indigo-700",
+                            (value === 0 && !editor?.isActive("heading")) || editor?.isActive("heading", { level: value }) && "bg-indigo-50 text-indigo-700"
                         )}
                     >
                         {label}
@@ -568,7 +568,7 @@ const FontFamilyButton = () => {
             <DropdownMenuTrigger asChild>
                 <button
                     className=
-                    "h-7 w-[120px] shrink-0 flex items-center justify-between rounded-sm hover:bg-neutral-200/80 px-1.5 overflow-hidden text-sm"
+                    "h-7 w-[120px] shrink-0 flex items-center justify-between rounded-md hover:bg-indigo-50 hover:text-indigo-700 px-1.5 overflow-hidden text-sm"
                 >
                     <span className="truncate">
                         {editor?.getAttributes("textStyle").fontFamily || "Arial"}
@@ -582,8 +582,8 @@ const FontFamilyButton = () => {
                         onClick={() => editor?.chain().focus().setFontFamily(value).run()}
                         key={value}
                         className={cn(
-                            "flex items-center gap-x-2 px-2 py-1 rounded-sm hover:bg-neutral-200/80",
-                            editor?.getAttributes("textStyle").fontFamily === value && "bg-neutral-200/80"
+                            "flex items-center gap-x-2 px-2 py-1 rounded-md hover:bg-indigo-50 hover:text-indigo-700",
+                            editor?.getAttributes("textStyle").fontFamily === value && "bg-indigo-50 text-indigo-700"
                         )}
                         style={{ fontFamily: value }}
                     >
@@ -611,8 +611,8 @@ const ToolbarButton = ({
         <button
             onClick={onClick}
             className={cn(
-                "text-sm h-7 min-w-7 flex items-center rounded-sm hover:bg-neutral-200/80",
-                isActive && "bg-neutral-200/80"
+                "text-sm h-7 min-w-7 flex items-center justify-center rounded-md hover:bg-indigo-50 hover:text-indigo-700",
+                isActive && "bg-indigo-100 text-indigo-700"
             )}
         >
             <Icon className="size-4" />
@@ -676,7 +676,7 @@ const OCRButton = () => {
             <button
                 onClick={handleOCR}
                 disabled={isProcessing}
-                className="h-7 min-w-7 shrink-0 flex items-center justify-center rounded-sm hover:bg-neutral-200/80 px-1.5 overflow-hidden text-sm disabled:opacity-50"
+                className="h-7 min-w-7 shrink-0 flex items-center justify-center rounded-md hover:bg-indigo-50 hover:text-indigo-700 px-1.5 overflow-hidden text-sm disabled:opacity-50"
                 title="Extract text from image (OCR)"
             >
                 {isProcessing ? (
@@ -691,10 +691,10 @@ const OCRButton = () => {
 
             <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
                 <DialogContent className="sm:max-w-lg p-0 border-none shadow-2xl rounded-xl overflow-hidden">
-                    <div className="bg-[#F1F4F9] px-5 py-4 border-b border-neutral-200/60">
+                    <div className="bg-indigo-50/50 px-5 py-4 border-b border-indigo-100/60">
                         <DialogHeader>
                             <DialogTitle className="flex items-center gap-2 text-sm font-semibold text-neutral-700">
-                                <ScanIcon className="size-4 text-blue-500" />
+                                <ScanIcon className="size-4 text-indigo-500" />
                                 Review Extracted Text
                             </DialogTitle>
                         </DialogHeader>
@@ -707,7 +707,7 @@ const OCRButton = () => {
                         <textarea
                             value={extractedText}
                             onChange={(e) => setExtractedText(e.target.value)}
-                            className="w-full h-56 p-4 bg-neutral-50 border border-neutral-200 rounded-lg text-sm text-neutral-700 resize-y focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-400 transition-colors placeholder:text-neutral-400 font-mono leading-relaxed"
+                            className="w-full h-56 p-4 bg-neutral-50 border border-neutral-200 rounded-lg text-sm text-neutral-700 resize-y focus:outline-none focus:ring-2 focus:ring-indigo-500/30 focus:border-indigo-400 transition-colors placeholder:text-neutral-400 font-mono leading-relaxed"
                             placeholder="Extracted text will appear here..."
                         />
                     </div>
@@ -716,7 +716,7 @@ const OCRButton = () => {
                         <Button variant="ghost" className="text-xs h-9 rounded-full px-4 text-neutral-600 hover:text-neutral-800 hover:bg-neutral-200/50" onClick={() => setIsDialogOpen(false)}>
                             Cancel
                         </Button>
-                        <Button className="text-xs h-9 rounded-full px-5 bg-blue-600 hover:bg-blue-700 text-white shadow-sm" onClick={handleInsert}>
+                        <Button className="text-xs h-9 rounded-full px-5 bg-indigo-600 hover:bg-indigo-700 text-white shadow-sm" onClick={handleInsert}>
                             Insert
                         </Button>
                     </div>
@@ -812,22 +812,22 @@ export const Toolbar = () => {
             {sections[0].map((item) => (
                 <ToolbarButton key={item.label} {...item} />
             ))}
-            <Separator orientation="vertical" className="h-6 bg-neutral-300" />
+            <Separator orientation="vertical" className="h-6 bg-neutral-200" />
             <FontFamilyButton />
 
-            <Separator orientation="vertical" className="h-6 bg-neutral-300" />
+            <Separator orientation="vertical" className="h-6 bg-neutral-200" />
             <HeadingLevelButton />
 
-            <Separator orientation="vertical" className="h-6 bg-neutral-300" />
+            <Separator orientation="vertical" className="h-6 bg-neutral-200" />
             <FontSizeButton />
-            <Separator orientation="vertical" className="h-6 bg-neutral-300" />
+            <Separator orientation="vertical" className="h-6 bg-neutral-200" />
 
             {sections[1].map((item) => (
                 <ToolbarButton key={item.label} {...item} />
             ))}
             <TextColorButton />
             <HighlightColorButton />
-            <Separator orientation="vertical" className="h-6 bg-neutral-300" />
+            <Separator orientation="vertical" className="h-6 bg-neutral-200" />
             <LinkButton />
             <ImageButton />
             <OCRButton />

@@ -128,7 +128,7 @@ export const Navbar = ({ data }: NavbarProps) => {
                     <div className="flex flex-col">
                         <Menubar className="border-none bg-transparent shadow-none h-auto p-0" >
                             <MenubarMenu>
-                                <MenubarTrigger className="text-sm font-normal py-0.5 px-[7px] rounded-sm hover:bg-muted h-auto">
+                                <MenubarTrigger className="text-sm font-normal py-0.5 px-[7px] rounded-md hover:bg-indigo-50 hover:text-indigo-700 h-auto">
                                     File
                                 </MenubarTrigger>
                                 <MenubarContent className="print:hidden">
@@ -191,7 +191,7 @@ export const Navbar = ({ data }: NavbarProps) => {
                             </MenubarMenu>
 
                             <MenubarMenu>
-                                <MenubarTrigger className="text-sm font-normal py-0.5 px-[7px] rounded-sm hover:bg-muted h-auto">
+                                <MenubarTrigger className="text-sm font-normal py-0.5 px-[7px] rounded-md hover:bg-indigo-50 hover:text-indigo-700 h-auto">
                                     Edit
                                 </MenubarTrigger>
                                 <MenubarContent>
@@ -207,7 +207,7 @@ export const Navbar = ({ data }: NavbarProps) => {
                                 </MenubarContent>
                             </MenubarMenu>
                             <MenubarMenu>
-                                <MenubarTrigger className="text-sm font-normal py-0.5 px-[7px] rounded-sm hover:bg-muted h-auto">
+                                <MenubarTrigger className="text-sm font-normal py-0.5 px-[7px] rounded-md hover:bg-indigo-50 hover:text-indigo-700 h-auto">
                                     Insert
                                 </MenubarTrigger>
                                 <MenubarContent>
@@ -231,7 +231,7 @@ export const Navbar = ({ data }: NavbarProps) => {
                                 </MenubarContent>
                             </MenubarMenu>
                             <MenubarMenu>
-                                <MenubarTrigger className="text-sm font-normal py-0.5 px-[7px] rounded-sm hover:bg-muted h-auto">
+                                <MenubarTrigger className="text-sm font-normal py-0.5 px-[7px] rounded-md hover:bg-indigo-50 hover:text-indigo-700 h-auto">
                                     Format
                                 </MenubarTrigger>
                                 <MenubarContent>

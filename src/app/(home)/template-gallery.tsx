@@ -37,9 +37,9 @@ export const TemplateGallery = () => {
     };
 
     return (
-        <div className="bg-[#F1F3F4]" >
-            <div className="max-w-screen-xl ms-auto px-16 py-6 flex flex-col gap-y-4">
-                <h3 className="font-medium">Start a new document</h3>
+        <div className="bg-[#F1F4F9]" >
+            <div className="max-w-screen-xl mx-auto px-16 py-6 flex flex-col gap-y-4">
+                <h3 className="font-semibold text-sm text-neutral-500 uppercase tracking-wider">Start a new document</h3>
                 <Carousel>
                     <CarouselContent className="-ml-4">
                         {templates.map((template) => (
@@ -62,9 +62,9 @@ export const TemplateGallery = () => {
                                             backgroundPosition: "center",
                                             backgroundRepeat: "no-repeat",
                                         }}
-                                        className="size-full hover:border-blue-500 rounded-sm border hover:bg-blue-50 transition flex flex-col items-center justify-center gap-y-4 bg-white"
+                                        className="size-full hover:border-indigo-400 rounded-xl border border-neutral-200/60 hover:shadow-[0_8px_30px_rgba(99,102,241,0.12)] hover:-translate-y-1 hover:scale-[1.02] transition-all duration-200 flex flex-col items-center justify-center gap-y-4 bg-white"
                                     />
-                                    <p className="text-sm font-medium truncate">
+                                    <p className="text-sm font-medium truncate text-neutral-700">
                                         {template.label}
                                     </p>
 

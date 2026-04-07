@@ -56,14 +56,14 @@ export const PomodoroTimer = () => {
       <div className="fixed bottom-6 right-6 z-40 print:hidden hidden md:block">
         <button
           onClick={() => setIsVisible(true)}
-          className="flex items-center gap-2 p-3 bg-[#F1F4F9] border-none rounded-full shadow-md hover:bg-neutral-200/80 transition-all group"
+          className="flex items-center gap-2 p-3 bg-white border border-neutral-200/60 rounded-full shadow-md hover:shadow-lg hover:border-indigo-200 transition-all group"
           title="Show Pomodoro Timer"
         >
           <div className="relative flex h-5 w-5 items-center justify-center">
             {isActive && (
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-blue-300 opacity-75"></span>
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-indigo-300 opacity-75"></span>
             )}
-            <TimerIcon className="size-5 text-neutral-700 relative" />
+            <TimerIcon className="size-5 text-indigo-600 relative" />
           </div>
         </button>
       </div>
@@ -79,14 +79,14 @@ export const PomodoroTimer = () => {
 
   return (
     <div className="fixed bottom-6 right-6 z-40 print:hidden hidden md:flex flex-col animate-in slide-in-from-bottom-4 fade-in-50">
-      <div className="bg-[#F1F4F9] shadow-xl rounded-[24px] overflow-hidden w-64 transition-all duration-300 border border-neutral-200/60 p-1">
+      <div className="bg-white shadow-xl rounded-[20px] overflow-hidden w-64 transition-all duration-300 border border-neutral-200/60 p-1">
         {/* Header */}
-        <div className="px-4 py-2 flex items-center justify-between border-b border-neutral-200/50">
+        <div className="px-4 py-2 flex items-center justify-between border-b border-neutral-100">
           <div className="flex items-center gap-2">
             {mode === "work" ? (
-              <TimerIcon className="size-4 text-primary" />
+              <TimerIcon className="size-4 text-indigo-600" />
             ) : (
-              <CoffeeIcon className="size-4 text-blue-500" />
+              <CoffeeIcon className="size-4 text-violet-500" />
             )}
             <span className="font-semibold text-xs text-neutral-700 uppercase tracking-wider">
               {mode === "work" ? "Focus" : "Break"}
@@ -95,7 +95,7 @@ export const PomodoroTimer = () => {
           <div className="flex items-center gap-1">
             <button
               onClick={() => setIsMinimized(!isMinimized)}
-              className="p-1 text-neutral-400 hover:text-neutral-600 hover:bg-neutral-200 rounded-sm transition-colors"
+              className="p-1 text-neutral-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-md transition-colors"
             >
               {isMinimized ? (
                 <Maximize2Icon className="size-3.5" />
@@ -105,7 +105,7 @@ export const PomodoroTimer = () => {
             </button>
             <button
               onClick={() => setIsVisible(false)}
-              className="p-1 text-neutral-400 hover:text-neutral-600 hover:bg-neutral-200 rounded-sm transition-colors"
+              className="p-1 text-neutral-400 hover:text-neutral-600 hover:bg-neutral-100 rounded-md transition-colors"
             >
               <XIcon className="size-3.5" />
             </button>
@@ -116,7 +116,7 @@ export const PomodoroTimer = () => {
         <div className="h-1 bg-neutral-100 w-full">
           <div
             className={`h-full transition-all duration-1000 ease-linear ${
-              mode === "work" ? "bg-red-500" : "bg-blue-500"
+              mode === "work" ? "bg-indigo-500" : "bg-violet-500"
             }`}
             style={{ width: `${progress}%` }}
           />
@@ -127,7 +127,7 @@ export const PomodoroTimer = () => {
           <div className="p-4 flex flex-col items-center gap-4">
             <div
               className={`text-5xl font-bold font-mono tracking-tighter ${
-                mode === "work" ? "text-neutral-800" : "text-blue-600"
+                mode === "work" ? "text-neutral-800" : "text-violet-600"
               }`}
             >
               {String(minutes).padStart(2, "0")}:
@@ -140,8 +140,8 @@ export const PomodoroTimer = () => {
                 size="sm"
                 className={`text-xs h-7 px-3 rounded-full ${
                   mode === "work"
-                    ? "bg-white hover:bg-neutral-50 text-neutral-800 shadow-sm font-medium border border-neutral-200"
-                    : "bg-transparent text-neutral-500 hover:text-neutral-700 hover:bg-neutral-200/50"
+                    ? "bg-indigo-50 hover:bg-indigo-100 text-indigo-700 shadow-none font-medium border border-indigo-200"
+                    : "bg-transparent text-neutral-500 hover:text-indigo-700 hover:bg-indigo-50"
                 }`}
                 onClick={() => switchMode("work")}
               >
@@ -152,8 +152,8 @@ export const PomodoroTimer = () => {
                 size="sm"
                 className={`text-xs h-7 px-3 rounded-full ${
                   mode === "break"
-                    ? "bg-white hover:bg-neutral-50 text-blue-600 shadow-sm font-medium border border-neutral-200"
-                    : "bg-transparent text-neutral-500 hover:text-neutral-700 hover:bg-neutral-200/50"
+                    ? "bg-violet-50 hover:bg-violet-100 text-violet-700 shadow-none font-medium border border-violet-200"
+                    : "bg-transparent text-neutral-500 hover:text-violet-700 hover:bg-violet-50"
                 }`}
                 onClick={() => switchMode("break")}
               >
@@ -167,8 +167,8 @@ export const PomodoroTimer = () => {
                 className={`flex-1 rounded-full h-9 ${
                   !isActive
                     ? mode === "work"
-                      ? "bg-neutral-800 hover:bg-neutral-900 text-white"
-                      : "bg-blue-600 hover:bg-blue-700 text-white"
+                      ? "bg-indigo-600 hover:bg-indigo-700 text-white"
+                      : "bg-violet-600 hover:bg-violet-700 text-white"
                     : "bg-white hover:bg-neutral-100 text-neutral-800 border border-neutral-200"
                 }`}
                 onClick={toggleTimer}
