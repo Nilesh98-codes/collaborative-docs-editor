@@ -116,26 +116,6 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ---
 
-## 📂 Project Structure
-
-```
-notesync/
-├── src/
-│   ├── app/
-│   │   ├── (home)/               → Home page — document list
-│   │   ├── documents/
-│   │   │   └── [documentId]/     → Editor page + AI assistant
-│   │   └── api/
-│   │       └── ai/               → Anthropic API proxy route
-│   ├── components/
-│   │   └── ui/                   → Shared UI components (shadcn/ui)
-│   ├── store/                    → Zustand editor store
-│   └── lib/                      → Utilities
-├── public/                       → Static assets
-└── .env.local                    → Environment variables (not committed)
-```
-
----
 
 ## 🧠 How It Works
 
@@ -157,14 +137,13 @@ notesync/
 - [ ] Cloud document storage
 - [ ] Real-time collaboration
 - [ ] Export as PDF / Word
-- [ ] Dark mode
 - [ ] Mobile-responsive editor
 
 ---
 
 ## 📸 Screenshots
 
-> *(Add screenshots of your home page, editor, OCR flow, and Pomodoro timer here)*
+> *(--Placeholder--)*
 
 ---
 
