@@ -42,14 +42,14 @@ export const SearchInput = () => {
                     value={value}
                     onChange={handleChange}
                     ref={inputRef}
-                    placeholder="Search"
-                    className="md:text-base placeholder:text-neutral-800 px-14 w-full border-none focus-visible:shadow-[0_1px_1px_0_rgba(65,69,73,.3),0_1px_3px_1px_rgba(65,69,73,.15)] bg-[#F0F4F8] rounded-full h-[48px] focus-visible:ring-0 focus:bg-white"
+                    placeholder="Search documents..."
+                    className="md:text-base placeholder:text-neutral-400 px-14 w-full border-none focus-visible:shadow-[0_0_0_3px_rgba(99,102,241,0.1)] bg-[#F0F4F8] rounded-full h-[48px] focus-visible:ring-0 focus:bg-white focus:border-indigo-300"
                 />
                 <Button
                     type="submit"
                     variant="ghost"
                     size="icon"
-                    className="absolute left-3 top-1/2 -translate-y-1/2 [&_svg]:size-5 rounded-full"
+                    className="absolute left-3 top-1/2 -translate-y-1/2 [&_svg]:size-5 rounded-full text-neutral-400 hover:text-indigo-600"
                 >
                     <SearchIcon />
                 </Button>
@@ -59,7 +59,7 @@ export const SearchInput = () => {
                         type="button"
                         variant="ghost"
                         size="icon"
-                        className="absolute right-3 top-1/2 -translate-y-1/2 [&_svg]:size-5 rounded-full"
+                        className="absolute right-3 top-1/2 -translate-y-1/2 [&_svg]:size-5 rounded-full text-neutral-400 hover:text-neutral-600"
                     >
                         <XIcon />
                     </Button>

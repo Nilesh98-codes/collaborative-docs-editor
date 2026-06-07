@@ -17,12 +17,12 @@ const Home = () => {
     loadMore } = usePaginatedQuery(api.documents.get, { search }, { initialNumItems: 5 });
 
   return (
-    <div className="min-h-screen flex flex-col">
-      <div className="fixed top-0 left-0 right-0 z-10 h-16 bg-white p-4">
+    <div className="min-h-screen flex flex-col bg-[#FAFAF9]">
+      <div className="fixed top-0 left-0 right-0 z-10 h-16 bg-white/60 backdrop-blur-xl border-b border-indigo-100/40 p-4 shadow-[0_1px_3px_0_rgba(99,102,241,0.04)]">
         <Navbar />
       </div>
 
-      <div className="mt-16">
+      <div className="mt-16 py-8">
         <TemplateGallery />
         <DocumentsTable
           documents={results}

@@ -70,7 +70,7 @@ export const DocumentInput = ({ title, id }: DocumentInputProps) => {
                         value={value}
                         onChange={onChange}
                         onBlur={() => setIsEditing(false)}
-                        className="absolute inset-0 text-lg text-black px-1.5 bg-transparent truncate"
+                        className="absolute inset-0 text-lg text-black px-1.5 bg-transparent truncate focus:outline-none focus:ring-1 focus:ring-indigo-300 rounded-md"
                     />
                 </form>
 
@@ -82,13 +82,13 @@ export const DocumentInput = ({ title, id }: DocumentInputProps) => {
                             inputRef.current?.focus();
                         })
                     }}
-                    className="text-lg px-1.5 cursor-pointer truncate">
+                    className="text-lg font-medium px-1.5 cursor-pointer truncate hover:text-indigo-700">
                     {title}
                 </span>
             )}
-            {showError && <BsCloudSlash className="size-4"/>}
-            {!showError && !showLoader && <BsCloudCheck />}
-            {showLoader && <Loader2Icon className="size-4 animate-spin text-muted-foreground"/> }
+            {showError && <BsCloudSlash className="size-4 text-red-400"/>}
+            {!showError && !showLoader && <BsCloudCheck className="size-4 text-emerald-500"/>}
+            {showLoader && <Loader2Icon className="size-4 animate-spin text-indigo-400"/> }
             
         </div>
     )

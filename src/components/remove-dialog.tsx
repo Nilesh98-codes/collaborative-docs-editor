@@ -23,7 +23,7 @@ import { useRouter } from "next/navigation";
 
 interface RemoveDialogProps {
     documentId: Id<"documents">;
-    initialTitle: string;
+    initialTitle?: string;
     children: React.ReactNode;
 };
 

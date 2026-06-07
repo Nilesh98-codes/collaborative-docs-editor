@@ -1,5 +1,4 @@
-import { SiGoogledocs } from "react-icons/si";
-import { Building2Icon, CircleUserIcon } from "lucide-react";
+import { FileTextIcon, Building2Icon, CircleUserIcon } from "lucide-react";
 import { format } from "date-fns";
 
 import { TableCell, TableRow } from "@/components/ui/table";
@@ -18,10 +17,10 @@ export const DocumentRow = ({ document }: DocumentRowProps) => {
     return (
         <TableRow 
         onClick={() => router.push(`/documents/${document._id}`)}
-        className="cursor-pointer"
+        className="cursor-pointer group hover:bg-indigo-50/40 border-l-2 border-l-transparent hover:border-l-indigo-500"
         >
             <TableCell className="w-[50px]">
-                <SiGoogledocs className="size-6 fill-blue-500" />
+                <FileTextIcon className="size-5 text-indigo-500" />
             </TableCell>
             <TableCell className="font-medium md:w-[45%]">
                 {document.title}

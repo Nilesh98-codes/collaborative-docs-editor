@@ -30,16 +30,16 @@ export const DocumentsTable = ({
         <div className="max-w-screen-xl mx-auto px-16 py-6 flex flex-col gap-5">
             {documents === undefined ? (
                 <div className="flex justify-center items-center h-24">
-                    <Loader2Icon className="animate-spin text-muted-foreground size-5" />
+                    <Loader2Icon className="animate-spin text-indigo-400 size-5" />
                 </div>
             ) : (
                 <Table>
                     <TableHeader>
                         <TableRow className="hover:bg-transparent border-none">
-                            <TableHead>Name</TableHead>
+                            <TableHead className="text-xs font-semibold uppercase tracking-wider text-neutral-400">Name</TableHead>
                             <TableHead>&nbsp;</TableHead>
-                            <TableHead className="hidden md:table-cell">Shared</TableHead>
-                            <TableHead className="hidden md:table-cell">Created at</TableHead>
+                            <TableHead className="hidden md:table-cell text-xs font-semibold uppercase tracking-wider text-neutral-400">Shared</TableHead>
+                            <TableHead className="hidden md:table-cell text-xs font-semibold uppercase tracking-wider text-neutral-400">Created at</TableHead>
                         </TableRow>
                     </TableHeader>
                     {documents.length === 0 ? (
@@ -67,6 +67,7 @@ export const DocumentsTable = ({
                     size="sm"
                     onClick={() => loadMore(5)}
                     disabled={status !== "CanLoadMore"}
+                    className="rounded-full text-xs font-medium text-neutral-500 hover:text-indigo-600 hover:bg-indigo-50"
                 >
                     {status === "CanLoadMore" ? "Load More" : "End of results"}
 
@@ -76,6 +77,5 @@ export const DocumentsTable = ({
         </div>
     );
 };
-
 
 

@@ -2,36 +2,64 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
 body {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Inter', sans-serif;
+  background-color: #FAFAF9;
+  color: #18181B;
+}
+
+::selection {
+  background: #E0E7FF;
+  color: #1e1b4b;
+}
+
+/* Refined scrollbar */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #C7D2FE; border-radius: 999px; }
+::-webkit-scrollbar-thumb:hover { background: #A5B4FC; }
+
+/* Smooth transitions globally */
+*, *::before, *::after {
+  transition-property: background-color, border-color, box-shadow, opacity;
+  transition-duration: 150ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Exclude animations and transforms from the global transition */
+.animate-spin, .animate-ping, .animate-pulse, .animate-bounce,
+[class*="animate-in"], [class*="animate-out"] {
+  transition-property: none;
 }
 
 @layer base {
   :root {
     --background: 0 0% 100%;
-    --foreground: 0 0% 3.9%;
+    --foreground: 240 10% 3.9%;
     --card: 0 0% 100%;
-    --card-foreground: 0 0% 3.9%;
+    --card-foreground: 240 10% 3.9%;
     --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 3.9%;
-    --primary: 0 0% 9%;
-    --primary-foreground: 0 0% 98%;
-    --secondary: 0 0% 96.1%;
-    --secondary-foreground: 0 0% 9%;
-    --muted: 0 0% 96.1%;
-    --muted-foreground: 0 0% 45.1%;
-    --accent: 0 0% 96.1%;
-    --accent-foreground: 0 0% 9%;
+    --popover-foreground: 240 10% 3.9%;
+    --primary: 239 84% 67%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 240 5% 96%;
+    --secondary-foreground: 240 6% 10%;
+    --muted: 240 5% 96%;
+    --muted-foreground: 240 4% 46%;
+    --accent: 240 5% 96%;
+    --accent-foreground: 240 6% 10%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 89.8%;
-    --input: 0 0% 89.8%;
-    --ring: 0 0% 3.9%;
-    --chart-1: 12 76% 61%;
+    --border: 240 6% 90%;
+    --input: 240 6% 90%;
+    --ring: 239 84% 67%;
+    --chart-1: 239 84% 67%;
     --chart-2: 173 58% 39%;
     --chart-3: 197 37% 24%;
     --chart-4: 43 74% 66%;
-    --chart-5: 27 87% 67%;
+    --chart-5: 271 81% 56%;
     --radius: 0.5rem;
   }
 
@@ -73,14 +101,21 @@ body {
   }
 }
 
+/* Editor workspace background pattern */
+.editor-workspace {
+  background-color: #FAFAF9;
+  background-image: radial-gradient(circle, #e5e5e5 0.8px, transparent 0.8px);
+  background-size: 24px 24px;
+}
+
 .tiptap {
     /* Link styles */
   a {
-    @apply text-blue-600;
+    @apply text-indigo-600;
     cursor: pointer;
 
     &:hover {
-      @apply underline;
+      @apply underline text-indigo-700;
     }
   }
 
@@ -92,7 +127,7 @@ body {
     max-width: 100%;
 
     &.ProseMirror-selectnode {
-      outline: 3px solid var(--primary);
+      outline: 3px solid hsl(var(--primary));
     }
   }
 
@@ -107,7 +142,7 @@ body {
 
     td,
     th {
-      border: 1px solid black;
+      border: 1px solid #E5E7EB;
       box-sizing: border-box;
       min-width: 1em;
       padding: 6px 8px;
@@ -120,13 +155,13 @@ body {
     }
 
     th {
-      background-color: #c7c7c7;
-      font-weight: bold;
+      background-color: #F3F4F6;
+      font-weight: 600;
       text-align: left;
     }
 
     .selectedCell:after {
-      background: var(#959596);
+      background: rgba(99, 102, 241, 0.1);
       content: '';
       left: 0;
       right: 0;
@@ -138,7 +173,7 @@ body {
     }
 
     .column-resize-handle {
-      background-color: var(--primary);
+      background-color: hsl(var(--primary));
       bottom: -2px;
       pointer-events: none;
       position: absolute;
@@ -242,6 +277,7 @@ body {
 
     input[type='checkbox'] {
       cursor: pointer;
+      accent-color: #6366F1;
     }
 
     ul[data-type='taskList'] {
