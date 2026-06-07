@@ -1,30 +1,26 @@
-import { GoogleGenerativeAI } from "@google/generative-ai";
-
-const apiKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY;
-
-if (!apiKey) {
-  console.warn("NEXT_PUBLIC_GEMINI_API_KEY is not set in .env.local");
+export interface AIContentResult {
+  text: string;
+  contextTruncated: boolean;
 }
-
-const genAI = apiKey ? new GoogleGenerativeAI(apiKey) : null;
 
 export async function generateAIContent(
   prompt: string,
   context?: string
-): Promise<string> {
-  if (!genAI) {
-    throw new Error("Gemini API key is not configured.");
+): Promise<AIContentResult> {
+  const res = await fetch("/api/gemini", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ prompt, context }),
+  });
+
+  const data = await res.json();
+
+  if (!res.ok) {
+    throw new Error(data.error || "Failed to generate AI content.");
   }
 
-  const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
-
-  const fullPrompt = context
-    ? `Context (document text):\n"""\n${context}\n"""\n\n${prompt}`
-    : prompt;
-
-  const result = await model.generateContent(fullPrompt);
-  const response = result.response;
-  const text = response.text();
-
-  return text;
+  return {
+    text: data.text,
+    contextTruncated: data.contextTruncated ?? false,
+  };
 }

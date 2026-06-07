@@ -129,10 +129,13 @@ export const AIWritingAssistant = () => {
     setPreviewText("");
 
     try {
-  const result = await generateAIContent(
+  const { text, contextTruncated } = await generateAIContent(
     `${action.prompt}${selectedText}`
   );
-  setPreviewText(result);
+  setPreviewText(text);
+  if (contextTruncated) {
+    toast.warning("Document was too long — only the first 2 000 characters of context were used.");
+  }
 } catch (error) {
   let message = "Failed to generate AI content. Please try again.";
 
