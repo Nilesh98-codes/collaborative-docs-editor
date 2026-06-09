@@ -1,183 +1,258 @@
 <div align="center">
 
-# 📝 NoteSync
+# ✨ NoteSync
 
-**A modern, distraction-free document editor — built for students and professionals who want more than just a text box.**
+### A collaborative document editor with AI-powered writing tools
 
-[![Next.js](https://img.shields.io/badge/Next.js-15-black?style=flat-square&logo=next.js)](https://nextjs.org/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?style=flat-square&logo=typescript)](https://www.typescriptlang.org/)
-[![Tailwind CSS](https://img.shields.io/badge/Tailwind-3-38bdf8?style=flat-square&logo=tailwind-css)](https://tailwindcss.com/)
-[![License](https://img.shields.io/badge/License-Educational-green?style=flat-square)](#license)
+[![Next.js](https://img.shields.io/badge/Next.js-15-black?style=for-the-badge&logo=next.js&logoColor=white)](https://nextjs.org/)
+[![React](https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://react.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-3.4-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
+[![Gemini AI](https://img.shields.io/badge/Gemini_AI-API-8E75B2?style=for-the-badge&logo=google&logoColor=white)](https://ai.google.dev/)
+[![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](LICENSE)
 
-[Features](#-features) · [Tech Stack](#️-tech-stack) · [Getting Started](#-getting-started) · [Project Structure](#-project-structure) · [Roadmap](#-roadmap)
+<br />
+
+<p align="center">
+  <strong>Real-time collaboration</strong> · <strong>AI Writing Assistant</strong> · <strong>OCR Text Extraction</strong> · <strong>Rich Text Editing</strong>
+</p>
+
+<br />
 
 </div>
 
 ---
 
-## ✨ Overview
+## 📋 Table of Contents
 
-NoteSync is a full-stack document editor that goes beyond the basics. It combines rich text editing with productivity tools — OCR, a Pomodoro timer, and an AI writing assistant — all in a clean, minimal interface that doesn't look like a Google Docs clone.
-
-> Built as a personal project by **Ken William** to explore modern web development patterns with Next.js App Router.
+- [Features](#-features)
+- [Tech Stack](#-tech-stack)
+- [Getting Started](#-getting-started)
+- [Project Structure](#-project-structure)
+- [Environment Variables](#-environment-variables)
+- [Scripts](#-scripts)
+- [Credits](#-credits)
 
 ---
 
 ## 🚀 Features
 
-### ✍️ Rich Text Editor
-- Create, edit, and manage multiple documents
-- Tiptap-powered editor with full formatting support
-- Clean, distraction-free writing experience
-- Unique design — not a Google Docs replica
-
-### 📷 OCR (Optical Character Recognition)
-- Upload an image and extract text directly into your document
-- Supports handwritten and printed content
-- Powered by Tesseract.js
-
-### ⏳ Pomodoro Timer
-- Built-in focus timer to manage your work sessions
-- Configurable work/break intervals
-- Stays out of the way while you write
+### 📝 Rich Collaborative Document Editing
+- **Real-time collaboration** — Multiple users can edit the same document simultaneously with live cursors and presence indicators powered by [Liveblocks](https://liveblocks.io/)
+- **Threaded comments** — Leave inline comments, start discussion threads, and resolve conversations directly within the document
+- **Notification inbox** — Real-time bell notifications for comment replies and mentions
+- **Live cursor avatars** — See who's editing and where they are in the document in real-time
 
 ### 🤖 AI Writing Assistant
-- Select any text and apply AI-powered actions:
-  - Improve writing
-  - Rewrite
-  - Summarize
-  - Make shorter / Make longer
-- Powered by the **Anthropic Claude API** (claude-haiku)
-- Results shown in a preview dialog before applying
+- **Contextual AI actions** — Select any text and get an inline floating AI button with quick actions:
+  - ✍️ *Improve writing* — Enhance clarity and professionalism
+  - 🔄 *Rewrite* — Rephrase while preserving meaning
+  - 📝 *Summarize* — Condense into key points
+  - ✂️ *Make shorter* — Trim while keeping essentials
+  - 📖 *Make longer* — Expand with relevant detail
+- **Preview & edit** — Review AI suggestions side-by-side with the original before replacing
 
-### 🎨 Modern UI/UX
-- Off-white warm background (`#F9F9F7`) — easy on the eyes
-- Inter font, soft shadows, and rounded corners throughout
-- Frosted glass navbar, floating document cards
-- Custom violet accent color replacing Google-blue
+### 💬 AI Chat Assistant
+- **Conversational sidebar** — Chat with an AI assistant that understands your document's context
+- **Document-aware responses** — The assistant reads your document content to provide relevant answers
+- **Quick suggestions** — One-click prompts like "Summarize this document", "Suggest improvements", and "Improve grammar"
+- **Markdown rendering** — AI responses are beautifully formatted with lists, code blocks, and headings
+- **Responsive layout** — Full-screen drawer on mobile, inline sidebar on desktop
 
-### 📁 Document Management
-- Create, save, and manage multiple documents
-- Document list on the home page with card-based layout
-- Each document has its own editor route
+### 🔍 OCR — Text Extraction
+- **Image OCR** — Upload PNG, JPG, or WebP images and extract text using [Tesseract.js](https://tesseract.js.org/)
+- **PDF OCR** — Extract text from multi-page PDF documents with page-by-page progress tracking via [pdfjs-dist](https://mozilla.github.io/pdf.js/)
+- **Review & edit** — Preview extracted text in a dialog before inserting into the document
+
+### ⏱️ Pomodoro Timer
+- **Built-in focus timer** — 25-minute work / 5-minute break Pomodoro cycles
+- **Minimizable widget** — Floating timer in the bottom-right corner that can be minimized or hidden
+- **Visual progress** — Progress bar and animated pulse indicator when the timer is active
+- **Smart notifications** — Toast alerts when sessions end with automatic mode switching
+
+### 🔧 Editor Power Features
+- **Rich text formatting** — Bold, italic, underline, strikethrough, headings (H1–H5), and more
+- **Font customization** — 18 font families including Google Fonts (Inter, Roboto, Poppins, Montserrat)
+- **Adjustable font size** — Increment/decrement with manual input
+- **Text & highlight colors** — Full color picker for text and background highlighting
+- **Text alignment** — Left, center, right, and justify
+- **Line height control** — Default, single, 1.15, 1.5, and double spacing
+- **Lists** — Bullet lists, ordered lists, and interactive task/todo lists
+- **Tables** — Insertable tables with headers (1×1 to 4×4)
+- **Images** — Upload or paste URL with drag-to-resize support
+- **Links** — Insert and edit hyperlinks
+- **Adjustable margins** — Drag ruler to customize left/right page margins (synced in real-time)
+- **Spell check toggle** — Enable/disable browser spellcheck
+- **Print support** — Print-optimized layout with `Ctrl+P`
+- **Export formats** — Save as JSON, HTML, PDF, or plain text
+
+### 📄 Document Management
+- **Template gallery** — Start new documents from pre-built templates via a carousel picker
+- **Document search** — Search through your documents by title
+- **Rename & delete** — Manage documents with inline rename and remove dialogs
+- **Organization support** — Shared workspaces via Clerk organizations
+
+### 🔐 Authentication & Security
+- **Clerk authentication** — Secure sign-in/sign-up with organization switching
+- **Role-based access** — Document ownership and organization membership checks
+- **Protected API routes** — Server-side authentication for all Convex mutations
 
 ---
 
 ## 🛠️ Tech Stack
 
-| Layer | Technology |
+| Category | Technologies |
 |---|---|
-| Framework | Next.js 15 (App Router) |
-| Language | TypeScript |
-| Styling | Tailwind CSS |
-| Editor | Tiptap (ProseMirror) |
-| AI | Anthropic Claude API |
-| OCR | Tesseract.js |
-| State | Zustand |
-| Realtime / Storage | Liveblocks / Convex *(update as needed)* |
-| Deployment | Vercel |
+| **Framework** | ![Next.js](https://img.shields.io/badge/Next.js_15-black?style=flat-square&logo=next.js) ![React](https://img.shields.io/badge/React_19-61DAFB?style=flat-square&logo=react&logoColor=black) ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white) |
+| **Editor** | ![Tiptap](https://img.shields.io/badge/Tiptap-1a1a2e?style=flat-square) with 16+ extensions (StarterKit, Table, TaskList, Image Resize, etc.) |
+| **Real-time** | ![Liveblocks](https://img.shields.io/badge/Liveblocks-6366F1?style=flat-square) (collaboration, cursors, threads, comments, notifications) |
+| **Backend** | ![Convex](https://img.shields.io/badge/Convex-F97316?style=flat-square) (serverless database, mutations, queries) |
+| **AI** | ![Gemini](https://img.shields.io/badge/Google_Gemini-8E75B2?style=flat-square&logo=google&logoColor=white) (`@google/generative-ai`) |
+| **Auth** | ![Clerk](https://img.shields.io/badge/Clerk-6C47FF?style=flat-square&logo=clerk&logoColor=white) (authentication, organizations) |
+| **OCR** | ![Tesseract.js](https://img.shields.io/badge/Tesseract.js_7-blue?style=flat-square) · ![pdfjs](https://img.shields.io/badge/pdfjs--dist-red?style=flat-square) |
+| **State** | ![Zustand](https://img.shields.io/badge/Zustand_5-443E38?style=flat-square) |
+| **Styling** | ![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS_3.4-06B6D4?style=flat-square&logo=tailwindcss&logoColor=white) · ![Radix UI](https://img.shields.io/badge/Radix_UI-161618?style=flat-square) · ![Lucide](https://img.shields.io/badge/Lucide_Icons-F56565?style=flat-square) |
+| **Utilities** | `date-fns` · `nuqs` (URL search params) · `sonner` (toasts) · `react-markdown` · `embla-carousel-react` |
 
 ---
 
-## 📦 Getting Started
+## 🏁 Getting Started
 
 ### Prerequisites
-- Node.js 18+
-- An [Gemini API key](https://aistudio.google.com/) for the AI assistant
+
+- **Node.js** ≥ 18
+- **npm** (or yarn / pnpm)
+- A [Clerk](https://clerk.com/) account (for authentication)
+- A [Convex](https://www.convex.dev/) project (for the database)
+- A [Liveblocks](https://liveblocks.io/) account (for real-time collaboration)
+- A [Google AI Studio](https://aistudio.google.com/) API key (for Gemini AI features)
 
 ### Installation
 
 ```bash
-# 1. Clone the repo
-git clone https://github.com/Nilesh98-codes/collaborative-docs-editor
-cd notesync
+# 1. Clone the repository
+git clone https://github.com/Nilesh98-codes/collaborative-docs-editor.git
+cd collaborative-docs-editor
 
 # 2. Install dependencies
 npm install
 
 # 3. Set up environment variables
-cp .env.example .env.local
-```
+cp .env.local.example .env.local
+# Then fill in your keys (see Environment Variables section below)
 
-Add your keys to `.env.local`:
+# 4. Start the Convex dev server (in a separate terminal)
+npx convex dev
 
-```env
-GEMINI_API_KEY=Ai----
-NEXT_PUBLIC_CONVEX_URL = 
-LIVEBLOCKS_SECRET_KEY = sk..
-```
-
-```bash
-# 4. Start the dev server
+# 5. Start the development server
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) in your browser.
+The app will be running at **http://localhost:3000** 🎉
 
 ---
 
+## 🔑 Environment Variables
 
-## 🧠 How It Works
+Create a `.env.local` file in the project root with the following variables:
 
-1. **Home page** lists all your saved documents as cards. Click one to open it, or create a new one.
-2. **Editor page** loads the Tiptap editor with a full toolbar. Select any text to trigger the floating AI button.
-3. **AI assistant** sends your selected text to `/api/ai` (a server-side proxy), which calls the Claude API and returns the result in a preview dialog.
-4. **OCR module** lets you upload an image — Tesseract.js processes it and inserts the extracted text into the editor at your cursor.
-5. **Pomodoro timer** runs as a floating widget, independent of the editor state.
+```env
+# Convex
+CONVEX_DEPLOYMENT=your_convex_deployment
+NEXT_PUBLIC_CONVEX_URL=https://your-deployment.convex.cloud
 
----
+# Clerk Authentication
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_xxxxx
+CLERK_SECRET_KEY=sk_test_xxxxx
 
-## 🗺️ Roadmap
+# Liveblocks (Real-time collaboration)
+LIVEBLOCKS_SECRET_KEY=sk_dev_xxxxx
 
-- [x] Rich text editor with Tiptap
-- [x] OCR with Tesseract.js
-- [x] Pomodoro timer
-- [x] AI writing assistant (Claude API)
-- [x] Modern UI redesign
-- [ ] Cloud document storage
-- [ ] Real-time collaboration
-- [ ] Export as PDF / Word
-- [ ] Mobile-responsive editor
+# Google Gemini AI
+GEMINI_API_KEY=your_gemini_api_key
+```
 
 ---
 
-## 📸 Screenshots
+## 📁 Project Structure
 
-> *(--Placeholder--)*
+```
+note-sync/
+├── convex/                     # Convex backend
+│   ├── schema.ts               #   Database schema
+│   ├── documents.ts            #   Document CRUD mutations & queries
+│   └── auth.config.ts          #   Authentication config
+│
+├── src/
+│   ├── app/
+│   │   ├── (home)/             # Dashboard / landing page
+│   │   │   ├── page.tsx        #   Home page with document list
+│   │   │   ├── template-gallery.tsx  #   New document templates
+│   │   │   ├── documents-table.tsx   #   Document list table
+│   │   │   └── search-input.tsx      #   Search bar
+│   │   │
+│   │   ├── documents/[documentId]/   # Document editor page
+│   │   │   ├── editor.tsx      #   Tiptap editor setup
+│   │   │   ├── toolbar.tsx     #   Formatting toolbar + OCR
+│   │   │   ├── navbar.tsx      #   Top nav (file menu, avatars)
+│   │   │   ├── ai-writing-assistant.tsx  #   Floating AI text actions
+│   │   │   ├── ai-chat-panel.tsx   #   AI chat sidebar
+│   │   │   ├── pomodoro-timer.tsx  #   Focus timer widget
+│   │   │   ├── threads.tsx     #   Comment threads
+│   │   │   ├── inbox.tsx       #   Notification inbox
+│   │   │   ├── ruler.tsx       #   Draggable margin ruler
+│   │   │   └── avatars.tsx     #   Collaborator presence
+│   │   │
+│   │   └── api/
+│   │       ├── gemini/         #   AI writing assistant API route
+│   │       ├── gemini-chat/    #   AI chat API route
+│   │       └── liveblocks-auth/#   Liveblocks auth endpoint
+│   │
+│   ├── components/             # Shared components
+│   │   ├── ui/                 #   Radix-based UI primitives
+│   │   ├── rename-dialog.tsx   #   Document rename modal
+│   │   └── remove-dialog.tsx   #   Document delete confirmation
+│   │
+│   ├── store/                  # Zustand state stores
+│   │   ├── use-editor-store.ts #   Editor instance state
+│   │   └── use-chat-store.ts   #   AI chat panel state
+│   │
+│   ├── extensions/             # Custom Tiptap extensions
+│   │   ├── font-size.ts        #   Font size control
+│   │   └── line-height.ts      #   Line height control
+│   │
+│   ├── hooks/                  # Custom React hooks
+│   ├── constants/              # App constants & templates
+│   └── lib/                    # Utilities (Gemini client, cn helper)
+│
+├── public/                     # Static assets & workers
+├── liveblocks.config.ts        # Liveblocks type definitions
+└── package.json
+```
 
 ---
 
-## 🚀 Deployment
+## 📜 Scripts
 
-Deploy instantly on [Vercel](https://vercel.com):
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new)
-
-Make sure to add your environment variables in the Vercel project settings.
-
----
-
-## 🤝 Contributing
-
-This is a personal project, but suggestions and PRs are welcome!
-
-1. Fork the repo
-2. Create a branch: `git checkout -b feature/your-feature`
-3. Commit your changes: `git commit -m 'Add your feature'`
-4. Push and open a pull request
+| Command | Description |
+|---|---|
+| `npm run dev` | Start the development server |
+| `npm run build` | Build for production |
+| `npm run start` | Start the production server |
+| `npm run lint` | Run ESLint |
 
 ---
 
-## 📄 License
+## 🙏 Credits
 
-Built for educational purposes. Feel free to learn from it.
+<div align="center">
+
+**Built with ❤️ by Ken**
+
+</div>
 
 ---
 
 <div align="center">
-
-Made by **Nilesh Chidambaram**
-
-*Star the repo if you found it useful ⭐*
-
+  <sub>If you found this project useful, consider giving it a ⭐</sub>
 </div>
