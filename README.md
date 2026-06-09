@@ -247,7 +247,7 @@ note-sync/
 
 <div align="center">
 
-**Built with ❤️ by Ken**
+**Built with ❤️ by Nilesh Chidambaram**
 
 </div>
 
