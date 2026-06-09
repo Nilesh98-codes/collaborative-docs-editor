@@ -10,6 +10,8 @@ import { Toolbar } from "./toolbar";
 import { Room } from "./room"
 import { AIWritingAssistant } from "./ai-writing-assistant"
 import { PomodoroTimer } from "./pomodoro-timer"
+import { AIChatPanel } from "./ai-chat-panel"
+import { useChatStore } from "@/store/use-chat-store"
 import { api } from "../../../../convex/_generated/api";
 
 interface DocumentProps {
@@ -19,6 +21,7 @@ interface DocumentProps {
 export const Document = ({ preloadedDocument }: DocumentProps) => {
     const router = useRouter();
     const document = usePreloadedQuery(preloadedDocument);
+    const isChatOpen = useChatStore((s) => s.isOpen);
 
     useEffect(() => {
         if (!document) {
@@ -35,10 +38,13 @@ export const Document = ({ preloadedDocument }: DocumentProps) => {
                     <Navbar data={document}/>
                     <Toolbar />
                 </div>
-                <div className="pt-[114px] print:pt-0 relative">
-                    <Editor initialContent={document.initialContent}/>
-                    <AIWritingAssistant />
-                    <PomodoroTimer />
+                <div className={`pt-[114px] print:pt-0 relative flex transition-all duration-300 ease-in-out`}>
+                    <div className="flex-1 min-w-0">
+                        <Editor initialContent={document.initialContent}/>
+                        <AIWritingAssistant />
+                        <PomodoroTimer />
+                    </div>
+                    {isChatOpen && <AIChatPanel />}
                 </div>
             </div>
         </Room>

@@ -23,7 +23,7 @@ export async function POST(req: NextRequest) {
   // Enforce input length limits
   const contextTruncated = typeof context === "string" && context.length > 2000;
   const truncatedContext = typeof context === "string" ? context.slice(0, 2000) : undefined;
-  const truncatedPrompt = prompt.slice(0, 500);
+  const truncatedPrompt = prompt.slice(0, 2000);
 
   const genAI = new GoogleGenerativeAI(apiKey);
   const model = genAI.getGenerativeModel({ model: "gemini-flash-latest" });
@@ -35,7 +35,7 @@ export async function POST(req: NextRequest) {
   try {
     const result = await model.generateContent({
       contents: [{ role: "user", parts: [{ text: fullPrompt }] }],
-      generationConfig: { maxOutputTokens: 300 },
+      generationConfig: { maxOutputTokens: 800 },
     });
     const text = result.response.text();
 

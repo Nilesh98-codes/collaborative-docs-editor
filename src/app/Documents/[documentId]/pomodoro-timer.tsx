@@ -4,11 +4,13 @@ import { useState, useEffect, useCallback } from "react";
 import { PlayIcon, PauseIcon, RotateCcwIcon, CoffeeIcon, TimerIcon, Minimize2Icon, Maximize2Icon, XIcon } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
+import { useChatStore } from "@/store/use-chat-store";
 
 const WORK_TIME = 25 * 60;
 const BREAK_TIME = 5 * 60;
 
 export const PomodoroTimer = () => {
+  const isChatOpen = useChatStore((s) => s.isOpen);
   const [timeLeft, setTimeLeft] = useState(WORK_TIME);
   const [isActive, setIsActive] = useState(false);
   const [mode, setMode] = useState<"work" | "break">("work");
@@ -50,6 +52,8 @@ export const PomodoroTimer = () => {
       if (interval) clearInterval(interval);
     };
   }, [isActive, timeLeft, mode, switchMode]);
+
+  if (isChatOpen) return null;
 
   if (!isVisible) {
     return (

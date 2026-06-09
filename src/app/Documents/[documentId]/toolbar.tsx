@@ -27,6 +27,7 @@ import {
     RemoveFormattingIcon,
     ScanIcon,
     SearchIcon,
+    SparklesIcon,
     SpellCheckIcon,
     UnderlineIcon,
     Undo2Icon,
@@ -54,6 +55,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import Tesseract from "tesseract.js";
 import { toast } from "sonner";
+import { useChatStore } from "@/store/use-chat-store";
 
 const LineHeightButton = () => {
     const { editor } = useEditorStore();
@@ -626,38 +628,87 @@ const ToolbarButton = ({
 const OCRButton = () => {
     const { editor } = useEditorStore();
     const [isProcessing, setIsProcessing] = useState(false);
+    const [processingStatus, setProcessingStatus] = useState("");
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     const [extractedText, setExtractedText] = useState("");
 
-    const handleOCR = () => {
+    const ocrImage = async (imageSource: File | HTMLCanvasElement): Promise<string> => {
+        const worker = await Tesseract.createWorker("eng", 1, {
+            workerPath: "/tesseract-worker.min.js",
+            corePath: "/tesseract-core/",
+        });
+        const result = await worker.recognize(imageSource);
+        await worker.terminate();
+        return result.data.text.trim();
+    };
+
+    const handlePDF = async (file: File) => {
+        const pdfjsLib = await import("pdfjs-dist");
+        pdfjsLib.GlobalWorkerOptions.workerSrc = "/pdf.worker.mjs";
+
+        const arrayBuffer = await file.arrayBuffer();
+        const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+        const totalPages = pdf.numPages;
+        const pageTexts: string[] = [];
+
+        for (let i = 1; i <= totalPages; i++) {
+            setProcessingStatus(`Scanning page ${i} of ${totalPages}…`);
+            const page = await pdf.getPage(i);
+            const viewport = page.getViewport({ scale: 2.0 });
+
+            const canvas = document.createElement("canvas");
+            canvas.width = viewport.width;
+            canvas.height = viewport.height;
+            const ctx = canvas.getContext("2d")!;
+            await page.render({ canvasContext: ctx, viewport, canvas }).promise;
+
+            const text = await ocrImage(canvas);
+            if (text) pageTexts.push(text);
+        }
+
+        return pageTexts.join("\n\n");
+    };
+
+    const processFile = async (file: File, type: "pdf" | "image") => {
+        setIsProcessing(true);
+        setProcessingStatus("Preparing…");
+
+        try {
+            let text = "";
+
+            if (type === "pdf") {
+                setProcessingStatus("Loading PDF…");
+                text = await handlePDF(file);
+            } else {
+                setProcessingStatus("Scanning image…");
+                text = await ocrImage(file);
+            }
+
+            if (text) {
+                setExtractedText(text);
+                setIsDialogOpen(true);
+            } else {
+                toast.error(`No text could be extracted from this ${type === "pdf" ? "PDF" : "image"}.`);
+            }
+        } catch {
+            toast.error("Failed to process the file. Please try again.");
+        } finally {
+            setIsProcessing(false);
+            setProcessingStatus("");
+        }
+    };
+
+    const openFilePicker = (type: "pdf" | "image") => {
         const input = document.createElement("input");
         input.type = "file";
-        input.accept = "image/*";
+        input.accept = type === "pdf"
+            ? ".pdf,application/pdf"
+            : ".png,.jpg,.jpeg,.webp,image/png,image/jpeg,image/webp";
 
         input.onchange = async (e) => {
             const file = (e.target as HTMLInputElement).files?.[0];
             if (!file) return;
-
-            setIsProcessing(true);
-            try {
-                const worker = await Tesseract.createWorker("eng", 1, {
-                    workerPath: "/tesseract-worker.min.js",
-                    corePath: "/tesseract-core/",
-                });
-                const result = await worker.recognize(file);
-                await worker.terminate();
-                const text = result.data.text.trim();
-                if (text) {
-                    setExtractedText(text);
-                    setIsDialogOpen(true);
-                } else {
-                    toast.error("No text could be extracted from this image.");
-                }
-            } catch {
-                toast.error("Failed to process the image. Please try again.");
-            } finally {
-                setIsProcessing(false);
-            }
+            await processFile(file, type);
         };
         input.click();
     };
@@ -673,21 +724,51 @@ const OCRButton = () => {
 
     return (
         <>
-            <button
-                onClick={handleOCR}
-                disabled={isProcessing}
-                className="h-7 min-w-7 shrink-0 flex items-center justify-center rounded-md hover:bg-indigo-50 hover:text-indigo-700 px-1.5 overflow-hidden text-sm disabled:opacity-50"
-                title="Extract text from image (OCR)"
-            >
-                {isProcessing ? (
-                    <svg className="size-4 animate-spin" viewBox="0 0 24 24" fill="none">
-                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
-                    </svg>
-                ) : (
-                    <ScanIcon className="size-4" />
-                )}
-            </button>
+            <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                    <button
+                        disabled={isProcessing}
+                        className="h-7 shrink-0 flex items-center justify-center gap-1 rounded-full bg-indigo-500 text-white hover:bg-indigo-600 px-2.5 overflow-hidden text-xs font-medium transition-colors disabled:opacity-60 shadow-sm"
+                        title="Scan image or PDF"
+                    >
+                        {isProcessing ? (
+                            <>
+                                <svg className="size-3.5 animate-spin" viewBox="0 0 24 24" fill="none">
+                                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                                </svg>
+                                <span className="hidden sm:inline">{processingStatus || "Scanning…"}</span>
+                            </>
+                        ) : (
+                            <>
+                                <ScanIcon className="size-3.5" />
+                                <span className="hidden sm:inline">OCR</span>
+                                <ChevronDownIcon className="size-3 ml-0.5 opacity-70" />
+                            </>
+                        )}
+                    </button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="p-1.5 min-w-[180px]">
+                    <DropdownMenuItem
+                        onClick={() => openFilePicker("pdf")}
+                        className="flex items-center gap-2 px-2.5 py-2 text-sm cursor-pointer rounded-md"
+                    >
+                        <svg className="size-4 text-red-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z" />
+                            <polyline points="14 2 14 8 20 8" />
+                            <path d="M10 12l-2 4h4l-2 4" />
+                        </svg>
+                        Extract from PDF
+                    </DropdownMenuItem>
+                    <DropdownMenuItem
+                        onClick={() => openFilePicker("image")}
+                        className="flex items-center gap-2 px-2.5 py-2 text-sm cursor-pointer rounded-md"
+                    >
+                        <ImageIcon className="size-4 text-blue-500" />
+                        Extract from Image
+                    </DropdownMenuItem>
+                </DropdownMenuContent>
+            </DropdownMenu>
 
             <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
                 <DialogContent className="sm:max-w-lg p-0 border-none shadow-2xl rounded-xl overflow-hidden">
@@ -723,6 +804,25 @@ const OCRButton = () => {
                 </DialogContent>
             </Dialog>
         </>
+    );
+};
+
+const AIChatButton = () => {
+    const { isOpen, toggle } = useChatStore();
+
+    return (
+        <button
+            onClick={toggle}
+            className={`h-7 shrink-0 flex items-center justify-center gap-1 rounded-full px-2.5 overflow-hidden text-xs font-medium transition-colors shadow-sm ${
+                isOpen
+                    ? "bg-indigo-700 text-white hover:bg-indigo-800"
+                    : "bg-indigo-500 text-white hover:bg-indigo-600"
+            }`}
+            title="AI Chat Assistant"
+        >
+            <SparklesIcon className="size-3.5" />
+            <span className="hidden sm:inline">AI Chat</span>
+        </button>
     );
 };
 
@@ -830,14 +930,15 @@ export const Toolbar = () => {
             <Separator orientation="vertical" className="h-6 bg-neutral-200" />
             <LinkButton />
             <ImageButton />
-            <OCRButton />
             <AlignButton />
             <LineHeightButton />
             <ListButton />
             {sections[2].map((item) => (
                 <ToolbarButton key={item.label} {...item} />
             ))}
-
+            <Separator orientation="vertical" className="h-6 bg-neutral-200" />
+            <OCRButton />
+            <AIChatButton />
 
 
         </div>

@@ -62,16 +62,41 @@ export const AIWritingAssistant = () => {
     const text = editor.state.doc.textBetween(from, to, " ");
 
     if (text.trim().length > 0) {
-      // Get the DOM coordinates of the selection end
-      const endCoords = editor.view.coordsAtPos(to);
-      const editorDom = editor.view.dom;
-      const editorRect = editorDom.getBoundingClientRect();
+      // Use native selection rect for accurate viewport-relative positioning
+      const domSelection = window.getSelection();
+      if (!domSelection || domSelection.rangeCount === 0) {
+        setShowFloating(false);
+        setShowActions(false);
+        return;
+      }
 
-      // Position the button below and to the right of the selection
-      const top = endCoords.bottom - editorRect.top + 8;
-      const left = endCoords.left - editorRect.left;
+      const range = domSelection.getRangeAt(0);
+      const rect = range.getBoundingClientRect();
 
-      setFloatingPos({ top, left: Math.max(0, Math.min(left, editorRect.width - 40)) });
+      if (rect.width === 0 && rect.height === 0) {
+        setShowFloating(false);
+        setShowActions(false);
+        return;
+      }
+
+      // Position centered above the selection, offset upward by 40px
+      const buttonWidth = showActions ? 160 : 60; // approximate widths
+      const buttonHeight = 36;
+      let top = rect.top - buttonHeight - 8; // 8px gap above selection
+      let left = rect.left + rect.width / 2 - buttonWidth / 2;
+
+      // Clamp within viewport bounds
+      const padding = 8;
+      if (top < padding) top = rect.bottom + 8; // flip below if no room above
+      if (left < padding) left = padding;
+      if (left + buttonWidth > window.innerWidth - padding) {
+        left = window.innerWidth - padding - buttonWidth;
+      }
+      if (top + buttonHeight > window.innerHeight - padding) {
+        top = window.innerHeight - padding - buttonHeight;
+      }
+
+      setFloatingPos({ top, left });
       setSelectedText(text.trim());
       selectionRangeRef.current = { from, to };
       setShowFloating(true);
@@ -79,7 +104,7 @@ export const AIWritingAssistant = () => {
       setShowFloating(false);
       setShowActions(false);
     }
-  }, [editor]);
+  }, [editor, showActions]);
 
   useEffect(() => {
     if (!editor) return;
@@ -124,6 +149,7 @@ export const AIWritingAssistant = () => {
 
     setActiveAction(action.label);
     setShowActions(false);
+    setShowFloating(false);
     setIsLoading(true);
     setShowPreview(true);
     setPreviewText("");
@@ -194,17 +220,15 @@ export const AIWritingAssistant = () => {
 
   return (
     <>
-      {/* Floating AI button — positioned relative to the editor DOM */}
+      {/* Floating AI button — fixed to viewport, positioned above selection */}
       {showFloating && (
         <div
           ref={floatingRef}
-          className="absolute z-20 print:hidden"
+          className="fixed z-[9999] print:hidden"
           style={{
             top: floatingPos.top,
             left: floatingPos.left,
           }}
-          // Mount inside the editor scroll container
-          // We use a portal-like approach by positioning absolute within the editor wrapper
         >
           {!showActions ? (
             <button
