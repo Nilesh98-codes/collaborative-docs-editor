@@ -1,5 +1,6 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { NextRequest, NextResponse } from "next/server";
+import { auth } from "@clerk/nextjs/server";
 
 interface ChatMessage {
   role: "user" | "assistant";
@@ -7,6 +8,11 @@ interface ChatMessage {
 }
 
 export async function POST(req: NextRequest) {
+  const { userId } = await auth();
+  if (!userId) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
   const apiKey = process.env.GEMINI_API_KEY;
 
   if (!apiKey) {
@@ -96,7 +102,7 @@ export async function POST(req: NextRequest) {
     const message = err instanceof Error ? err.message : "Unknown error";
     console.error("Gemini Chat API error:", message);
     return NextResponse.json(
-      { error: `Gemini API error: ${message}` },
+      { error: "AI service temporarily unavailable. Please try again." },
       { status: 502 }
     );
   }

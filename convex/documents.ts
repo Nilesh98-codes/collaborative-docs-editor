@@ -6,6 +6,11 @@ import { mutation, query } from "./_generated/server";
 export const getByIds = query({
   args: { ids: v.array(v.id("documents")) },
   handler: async (ctx, { ids }) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) {
+      throw new ConvexError("Unauthorized");
+    }
+
     const documents: { id: string; name: string }[] = [];
 
     for (const id of ids) {
@@ -165,6 +170,11 @@ export const updateById = mutation({
 export const getById = query({
   args: { id: v.id("documents") },
   handler: async (ctx, { id }) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) {
+      throw new ConvexError("Unauthorized");
+    }
+
     return await ctx.db.get(id);
   },
 });
