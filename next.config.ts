@@ -7,6 +7,8 @@ const nextConfig: NextConfig = {
     config.resolve.alias.canvas = false;
     return config;
   },
+
+  // Disable ESLint and TypeScript errors during production builds, and fix this after getting it live
   eslint: {
     ignoreDuringBuilds: true,
   },
