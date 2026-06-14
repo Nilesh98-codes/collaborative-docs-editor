@@ -86,7 +86,7 @@ export async function POST(req: NextRequest) {
   try {
     const result = await model.generateContent({
       contents,
-      generationConfig: { maxOutputTokens: 600 },
+      generationConfig: { maxOutputTokens: 1000 },
     });
     const text = result.response.text();
 

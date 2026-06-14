@@ -36,6 +36,9 @@ const montserrat = Montserrat({
 export const metadata: Metadata = {
     title: "NoteSync",
     description: "A Collaborative document editor and note taking app",
+    icons: {
+      icon: '/logo.svg',
+    },
 };
 
 
