@@ -1,17 +1,19 @@
 "use client";
 
-import { usePaginatedQuery } from "convex/react";
+import { Authenticated, AuthLoading, Unauthenticated, usePaginatedQuery } from "convex/react";
 
 import { useSearchParam } from "@/hooks/use-search-param";
+import { FullscreenLoader } from "@/components/fullscreen-loader";
 
 import { Navbar } from "./navbar";
 import { TemplateGallery } from "./template-gallery";
 import { api } from "../../../convex/_generated/api";
 import { DocumentsTable } from "./documents-table";
+import { LandingPage } from "./landing-page";
 
-const Home = () => {
-  const [search] = useSearchParam(); 
-  const { 
+const Dashboard = () => {
+  const [search] = useSearchParam();
+  const {
     results,
     status,
     loadMore } = usePaginatedQuery(api.documents.get, { search }, { initialNumItems: 5 });
@@ -34,4 +36,20 @@ const Home = () => {
   );
 };
 
-export default Home;
+const Home = () => {
+  return (
+    <>
+      <Authenticated>
+        <Dashboard />
+      </Authenticated>
+      <Unauthenticated>
+        <LandingPage />
+      </Unauthenticated>
+      <AuthLoading>
+        <FullscreenLoader label="Loading..." />
+      </AuthLoading>
+    </>
+  );
+};
+
+export default Home;
